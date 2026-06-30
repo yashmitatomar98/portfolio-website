@@ -1,0 +1,17 @@
+# Netlify configuration for this Next.js (App Router) app.
+# The official Next.js runtime turns the SSR/route handlers (including the
+# dynamic /opengraph-image) into Netlify functions and wires up routing —
+# without it, Netlify serves the build as a plain static site and every
+# route returns Netlify's "Page not found".
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Used for canonical URL, OG tags, sitemap and robots.
+  NEXT_PUBLIC_SITE_URL = "https://yashmita-portfolio-website.netlify.app"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
