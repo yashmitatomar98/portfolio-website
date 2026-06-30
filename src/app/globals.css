@@ -1,26 +1,263 @@
 @import "tailwindcss";
 
+@theme {
+  /* Palette — keep ≤3 colors per screen */
+  --color-ivory: #fcfbf8;
+  --color-surface: #ffffff;
+  --color-hairline: #eceae3;
+  --color-ink: #22252e;
+  --color-muted: #6b6f76;
+  --color-accent: #7a4f9e;
+  --color-accent-2: #b190c1; /* softer purple — for sheen/gradients only */
+  --color-accent-soft: #f2ecf7;
+
+  /* Type */
+  --font-heading: var(--font-poppins);
+  --font-body: var(--font-raleway);
+
+  /* Motion */
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-ivory);
+  --foreground: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* clears the sticky navbar on anchor jumps */
 }
 
 body {
-  background: var(--background);
+  position: relative;
+  /* clip (not hidden) prevents sideways scroll from reveal/glow effects
+     without turning body into a scroll container that would break sticky nav */
+  overflow-x: clip;
+  background-color: var(--background);
+  /* Soft, fixed ambient glow — quiet depth, not decoration */
+  background-image:
+    radial-gradient(
+      1100px 620px at 88% -8%,
+      rgba(122, 79, 158, 0.07),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 520px at -8% 8%,
+      rgba(177, 144, 193, 0.06),
+      transparent 55%
+    );
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Whisper of grain for an editorial, printed feel */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* keep real content above the grain layer */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* ── Reveal: scroll-in with directional variants ─────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s var(--ease-lux),
+    transform 0.8s var(--ease-lux);
+  will-change: opacity, transform;
+}
+.reveal--left {
+  transform: translateX(-22px);
+}
+.reveal--right {
+  transform: translateX(22px);
+}
+.reveal--scale {
+  transform: scale(0.96);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* On phones, sideways slides read as jank — fade gently upward instead */
+@media (max-width: 640px) {
+  .reveal--left,
+  .reveal--right {
+    transform: translateY(16px);
+  }
+}
+
+/* ── Luxe text + dividers ────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(
+    115deg,
+    var(--color-ink) 38%,
+    var(--color-accent) 78%,
+    var(--color-accent-2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lux-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent-2),
+    transparent
+  );
+}
+
+/* ── Buttons with a quiet sheen sweep on hover ───────────────── */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    transform 0.4s var(--ease-lux),
+    box-shadow 0.4s var(--ease-lux),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-130%) skewX(-18deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  transition: transform 0.7s var(--ease-lux);
+}
+.btn:hover::after {
+  transform: translateX(130%) skewX(-18deg);
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(122, 79, 158, 0.55);
+}
+.btn-ghost {
+  border: 1px solid var(--color-hairline);
+  color: var(--color-ink);
+  background: transparent;
+}
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  box-shadow: 0 10px 26px -14px rgba(34, 37, 46, 0.35);
+}
+
+/* ── Hover lift used by cards ────────────────────────────────── */
+.lift {
+  transition:
+    transform 0.45s var(--ease-lux),
+    box-shadow 0.45s var(--ease-lux),
+    border-color 0.45s var(--ease-lux);
+}
+.lift:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-hairline));
+  box-shadow: 0 22px 48px -28px rgba(34, 37, 46, 0.32);
+}
+
+/* animated nav underline */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1.5px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: right;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-2)
+  );
+  transition: transform 0.4s var(--ease-lux);
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* soft floating glow for the hero */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) scale(1.04);
+  }
+}
+.animate-float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+/* Stat numbers */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .btn::after,
+  .animate-float-slow {
+    animation: none;
+    transition: none;
+  }
 }
