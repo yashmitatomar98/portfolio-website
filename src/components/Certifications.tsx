@@ -11,7 +11,7 @@ export default function Certifications() {
         <ul className="mt-12 grid gap-3 sm:grid-cols-2">
           {certifications.map((cert, i) => (
             <Reveal as="li" key={cert} delay={i * 40}>
-              <div className="lift group flex items-start gap-3 rounded-lg border border-hairline bg-surface px-5 py-4">
+              <div className="surface-card lift group flex items-start gap-3 rounded-lg border border-hairline bg-surface px-5 py-4">
                 <svg
                   className="mt-0.5 shrink-0 text-accent transition-transform duration-300 group-hover:scale-110"
                   width="18"

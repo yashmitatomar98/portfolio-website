@@ -4,7 +4,7 @@ import { skills } from "@/data/skills";
 
 export default function SkillsGroups() {
   return (
-    <section id="skills" className="scroll-mt-20 bg-surface border-t border-hairline">
+    <section id="skills" className="scroll-mt-20 border-t border-hairline">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24 lg:py-32">
         <SectionHeading
           eyebrow="Skills"
@@ -22,7 +22,7 @@ export default function SkillsGroups() {
                 {items.map((item) => (
                   <li
                     key={item}
-                    className="cursor-default rounded-full border border-hairline bg-ivory px-3.5 py-1.5 text-sm text-ink/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent-soft hover:text-accent"
+                    className="chip cursor-default rounded-full px-3.5 py-1.5 text-sm text-ink/80"
                   >
                     {item}
                   </li>

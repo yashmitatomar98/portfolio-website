@@ -5,7 +5,7 @@ import { caseStudies } from "@/data/caseStudies";
 
 export default function CaseStudies() {
   return (
-    <section id="work" className="scroll-mt-20 bg-surface border-t border-hairline">
+    <section id="work" className="scroll-mt-20 border-t border-hairline">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24 lg:py-32">
         <SectionHeading
           eyebrow="Selected work"
@@ -16,7 +16,7 @@ export default function CaseStudies() {
         <div className="mt-14 space-y-8">
           {caseStudies.map((study, i) => (
             <Reveal key={study.slug} delay={i * 60} variant={i % 2 === 0 ? "left" : "right"}>
-              <article className="lift group relative overflow-hidden rounded-2xl border border-hairline bg-ivory p-6 sm:p-9">
+              <article className="surface-card lift group relative overflow-hidden rounded-2xl border border-hairline bg-surface p-6 sm:p-9">
                 {/* corner sheen that warms on hover */}
                 <div
                   aria-hidden="true"

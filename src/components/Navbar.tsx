@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
 import { navLinks } from "@/lib/site";
+import ThemeToggle from "./ThemeToggle";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -40,9 +42,13 @@ export default function Navbar() {
       >
         <a
           href="#top"
-          className="font-heading text-base font-semibold tracking-tight text-ink"
+          aria-label={`${profile.name} — back to top`}
+          className="flex items-center gap-2.5"
         >
-          {profile.name}
+          <Logo className="h-9 w-9" />
+          <span className="font-heading text-base font-semibold tracking-tight text-ink">
+            {profile.name}
+          </span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">
@@ -58,24 +64,27 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <ThemeToggle />
           <a
             href={profile.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn border border-accent px-4 py-2 text-accent hover:bg-accent hover:text-white"
+            className="btn border border-accent px-4 py-2 text-accent hover:bg-accent-strong hover:text-white"
           >
             Résumé
           </a>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label="Toggle navigation menu"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-ink md:hidden"
-        >
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation menu"
+            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-ink"
+          >
           <svg
             width="22"
             height="22"
@@ -99,7 +108,8 @@ export default function Navbar() {
               </>
             )}
           </svg>
-        </button>
+          </button>
+        </div>
       </nav>
 
       {open && (

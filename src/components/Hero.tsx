@@ -71,17 +71,19 @@ export default function Hero() {
               aria-hidden="true"
               className="animate-float-slow absolute -inset-6 -z-10 rounded-[2rem] bg-[radial-gradient(circle_at_50%_30%,rgba(122,79,158,0.22),transparent_70%)] blur-2xl"
             />
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-hairline bg-surface shadow-[0_30px_60px_-30px_rgba(34,37,46,0.35)]">
-              {/* hairline gradient frame */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 z-10 rounded-2xl ring-1 ring-inset ring-accent/10"
-              />
-              <Avatar
-                src={profile.headshot}
-                alt={`Portrait of ${profile.name}`}
-                initials="YT"
-              />
+            {/* gradient-edge frame */}
+            <div className="relative rounded-2xl bg-gradient-to-br from-accent/60 via-hairline to-accent-2/30 p-px shadow-[0_36px_70px_-34px_rgba(34,37,46,0.45)]">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[15px] bg-surface">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-10 rounded-[15px] ring-1 ring-inset ring-white/10"
+                />
+                <Avatar
+                  src={profile.headshot}
+                  alt={`Portrait of ${profile.name}`}
+                  initials="YT"
+                />
+              </div>
             </div>
           </div>
         </Reveal>

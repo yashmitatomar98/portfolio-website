@@ -19,7 +19,9 @@ export default function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="text-3xl font-semibold text-ink sm:text-4xl">{title}</h2>
+      <h2 className="heading-gradient text-3xl font-semibold sm:text-4xl">
+        {title}
+      </h2>
       {intro && <p className="mt-4 text-lg text-muted">{intro}</p>}
     </Reveal>
   );

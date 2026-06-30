@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* class-based dark mode (toggle adds `.dark` to <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Palette — keep ≤3 colors per screen */
   --color-ivory: #fcfbf8;
@@ -7,7 +10,8 @@
   --color-hairline: #eceae3;
   --color-ink: #22252e;
   --color-muted: #6b6f76;
-  --color-accent: #7a4f9e;
+  --color-accent: #7a4f9e; /* links, eyebrows, accents */
+  --color-accent-strong: #7a4f9e; /* filled-button bg (always paired w/ white) */
   --color-accent-2: #b190c1; /* softer purple — for sheen/gradients only */
   --color-accent-soft: #f2ecf7;
 
@@ -22,6 +26,21 @@
 :root {
   --background: var(--color-ivory);
   --foreground: var(--color-ink);
+  color-scheme: light;
+}
+
+/* ── Dark theme — swap the token values, components follow automatically ── */
+html.dark {
+  --color-ivory: #0f1016; /* page canvas — deep, slightly violet ink */
+  --color-surface: #181a23; /* cards */
+  --color-hairline: #2a2e3a; /* hairline borders */
+  --color-ink: #f0eee8; /* primary text */
+  --color-muted: #9aa0ad; /* muted text */
+  --color-accent: #c8a8e6; /* lighter purple — readable on dark */
+  --color-accent-strong: #7a4f9e; /* keeps white button text AA */
+  --color-accent-2: #e2d1f1;
+  --color-accent-soft: #221b2e;
+  color-scheme: dark;
 }
 
 html {
@@ -53,6 +72,30 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* gentle fade when toggling theme */
+  transition:
+    background-color 0.4s var(--ease-lux),
+    color 0.4s var(--ease-lux);
+}
+
+/* deeper, richer ambient glow + a soft vignette for depth in the dark */
+html.dark body {
+  background-image:
+    radial-gradient(
+      135% 125% at 50% -10%,
+      transparent 58%,
+      rgba(0, 0, 0, 0.45) 100%
+    ),
+    radial-gradient(
+      1100px 640px at 86% -10%,
+      rgba(132, 86, 170, 0.26),
+      transparent 60%
+    ),
+    radial-gradient(
+      920px 560px at -10% 6%,
+      rgba(177, 144, 193, 0.16),
+      transparent 55%
+    );
 }
 
 /* Whisper of grain for an editorial, printed feel */
@@ -169,12 +212,21 @@ h4 {
   transform: translateX(130%) skewX(-18deg);
 }
 .btn-primary {
-  background: var(--color-accent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-accent-strong) 86%, #ffffff 14%),
+    var(--color-accent-strong)
+  );
   color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 8px 22px -12px rgba(122, 79, 158, 0.6);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(122, 79, 158, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 16px 36px -12px rgba(122, 79, 158, 0.7);
 }
 .btn-ghost {
   border: 1px solid var(--color-hairline);
@@ -196,9 +248,20 @@ h4 {
     border-color 0.45s var(--ease-lux);
 }
 .lift:hover {
-  transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-hairline));
-  box-shadow: 0 22px 48px -28px rgba(34, 37, 46, 0.32);
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-hairline));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 1px 2px rgba(34, 37, 46, 0.04),
+    0 32px 60px -30px rgba(122, 79, 158, 0.32);
+}
+html.dark .lift:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-hairline));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(200, 168, 230, 0.12),
+    0 34px 66px -30px rgba(0, 0, 0, 0.9),
+    0 20px 60px -26px rgba(132, 86, 170, 0.5);
 }
 
 /* animated nav underline */
@@ -239,6 +302,94 @@ h4 {
 }
 .animate-float-slow {
   animation: float-slow 9s ease-in-out infinite;
+}
+
+/* ── Premium card material: resting shadow + edge highlight ──── */
+.surface-card {
+  position: relative;
+  box-shadow:
+    0 1px 2px rgba(34, 37, 46, 0.04),
+    0 18px 44px -32px rgba(34, 37, 46, 0.22);
+}
+.surface-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  /* a hairline of light along the top edge */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+html.dark .surface-card {
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.4),
+    0 26px 54px -32px rgba(0, 0, 0, 0.85);
+}
+html.dark .surface-card::before {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    transparent 38%
+  );
+}
+
+/* subtly graded section titles — ink leaning toward accent */
+.heading-gradient {
+  background: linear-gradient(
+    118deg,
+    var(--color-ink) 30%,
+    color-mix(in srgb, var(--color-ink) 45%, var(--color-accent)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* refined chips with an inset highlight */
+.chip {
+  background: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition:
+    transform 0.3s var(--ease-lux),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+html.dark .chip {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.chip:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-hairline));
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+/* premium selection + scrollbar */
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  color: var(--color-ink);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-hairline))
+    transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-accent) 45%, var(--color-hairline));
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-accent) 70%, var(--color-hairline));
+  background-clip: content-box;
 }
 
 /* Stat numbers */
