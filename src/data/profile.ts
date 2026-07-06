@@ -1,7 +1,7 @@
 export const profile = {
   name: "Yashmita Tomar",
   title: "Business Analyst",
-  tagline: "Data Analytics · Business Strategy · Process Optimization",
+  tagline: "Data Analytics · Dashboards · CRM · Process Improvement",
   valueProp:
     "I turn raw data into decisions that move sales, efficiency, and strategy.",
   location: "West Delhi, India",
@@ -15,8 +15,8 @@ export const profile = {
   resumeUrl: "/Yashmita_Tomar_CV.pdf", // add résumé PDF to /public
 
   about: [
-    "I'm a Business Analyst who pairs analytical rigor with business strategy. With a background in Electrical & Electronics Engineering and an MBA in Finance & Marketing, I specialize in data analysis, visualization (Power BI), Excel, and SQL — turning data-driven strategies into measurable outcomes like higher sales and lower costs.",
-    "Currently a Business Analyst at HORIBA, I've previously driven operations and analytics at FIITJEE, CRL Diagnostics, and Hive — building dashboards, KPIs, and reports that help teams make better decisions. I'm known for quantitative analysis, attention to detail, and clear cross-functional collaboration.",
+    "I'm a business analytics professional with 4+ years of experience across data analysis, dashboard development, CRM implementation, and business process improvement. With a background in Electrical & Electronics Engineering and an MBA in Finance & Marketing, I turn data into actionable insights through dashboards, reporting, and close stakeholder collaboration.",
+    "Currently driving business analytics at HORIBA, I lead the business side of a Salesforce CRM rollout and support a LIMS implementation, while building dashboards and executive reporting for Sales, Service, Marketing, and IT. Earlier, I drove analytics and operations at FIITJEE, CRL Diagnostics, and Chatous Technologies — delivering measurable outcomes like higher sales and lower costs, with a reputation for quantitative rigor, attention to detail, and clear cross-functional collaboration.",
   ],
 };
 

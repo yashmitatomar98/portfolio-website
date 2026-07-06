@@ -10,6 +10,22 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "horiba-crm",
+    title: "Leading the business side of a Salesforce CRM rollout at HORIBA",
+    context: "HORIBA · Business Analytics",
+    problem:
+      "Sales and service processes were spread across teams and tools, with limited shared visibility to support strategic decisions.",
+    approach:
+      "Led requirement gathering, UAT, and process validation for the Salesforce CRM implementation, coordinated stakeholders across Sales, Service, Marketing, and IT, and built dashboards and executive reporting to track business performance.",
+    impact:
+      "Ran the Customer Experience Survey campaign to its highest response rate to date, and support an ongoing LIMS rollout — driving the company's digital-transformation initiatives.",
+    stats: [
+      { value: "Highest", label: "CX survey response rate" },
+      { value: "Salesforce", label: "CRM implementation led" },
+      { value: "4", label: "Teams coordinated" },
+    ],
+  },
+  {
     slug: "crl-sales-lift",
     title: "Driving a 21% sales lift at CRL Diagnostics",
     context: "CRL Diagnostics · Data Analyst",
@@ -43,7 +59,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "hive-ml-datasets",
     title: "Preparing clean ML datasets at scale",
-    context: "Hive · Data Analyst",
+    context: "Chatous Technologies · Data Analyst",
     problem:
       "Large volumes of messy, unstructured data needed to be readied for machine-learning training.",
     approach:
