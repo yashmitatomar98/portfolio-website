@@ -1,7 +1,7 @@
 export const profile = {
   name: "Yashmita Tomar",
   title: "Business Analyst",
-  tagline: "Data Analytics · Dashboards · CRM · Process Improvement",
+  tagline: "Business Analytics · Dashboards · CRM · Process Improvement",
   valueProp:
     "I turn raw data into decisions that move sales, efficiency, and strategy.",
   location: "West Delhi, India",

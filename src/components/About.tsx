@@ -7,7 +7,7 @@ export default function About() {
     <section id="about" className="scroll-mt-20 border-t border-hairline">
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24 lg:py-32">
         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
-          <SectionHeading eyebrow="About" title="Analytical rigor, business sense." />
+          <SectionHeading eyebrow="About" title="Analytical Rigor, business sense." />
           <div className="space-y-6">
             {profile.about.map((para, i) => (
               <Reveal key={i} delay={i * 80}>

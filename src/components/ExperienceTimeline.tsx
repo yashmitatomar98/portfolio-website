@@ -8,7 +8,7 @@ export default function ExperienceTimeline() {
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-24 lg:py-32">
         <SectionHeading
           eyebrow="Experience"
-          title="Career arc"
+          title="Career Arc"
           intro="From engineering to data to business analysis — a decade of turning data into decisions."
         />
 
